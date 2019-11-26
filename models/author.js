@@ -17,9 +17,7 @@ AuthorSchema.virtual('name').get(function() {
 
 // Virtual for author's lifespan
 AuthorSchema.virtual('lifespan').get(function() {
-  return (
-    this.date_of_death.getYear() - this.date_of_birth.getYear()
-  ).toString();
+  return this.dob + ' - ' + this.dod;
 });
 
 // Virtual for author's URL
@@ -29,13 +27,17 @@ AuthorSchema.virtual('url').get(function() {
 
 AuthorSchema.virtual('dob').get(function() {
   return this.date_of_birth
-    ? moment(this.date_of_birth).format('MMMM Do, YYYY')
+    ? moment(this.date_of_birth)
+        .format('MMMM Do, YYYY')
+        .toString()
     : '';
 });
 
 AuthorSchema.virtual('dod').get(function() {
   return this.date_of_death
-    ? moment(this.date_of_death).format('MMMM Do, YYYY')
+    ? moment(this.date_of_death)
+        .format('MMMM Do, YYYY')
+        .toString()
     : '';
 });
 
